@@ -1,7 +1,7 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getProductList } from "modules/home/actions";
+import { getProductList } from "../../actions";
 import { Typography } from "@mui/material";
 import ProductList from "core/components/product/ProductList/ProductList";
 import { useEffect } from "react";

@@ -1,11 +1,17 @@
 import * as React from "react";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 const Logo = (props) => {
   const { classes } = props;
+
+  let history = useHistory();
+  const handleClick = () => {
+    history.push("/");
+  };
   return (
-    <div className={classes.logoWrapper}>
+    <div className={classes.logoWrapper} onClick={() => handleClick()}>
       <Typography variant="h6" className={classes.logoCapital}>
         L
       </Typography>
@@ -20,6 +26,7 @@ const styles = (theme) => ({
   logoWrapper: {
     flexGrow: 1,
     justifyContent: "space-between",
+    cursor: "pointer",
   },
   logoCapital: {
     color: "#fff",

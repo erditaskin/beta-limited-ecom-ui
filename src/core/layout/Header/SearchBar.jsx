@@ -5,13 +5,21 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { withStyles } from "@material-ui/core/styles";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 
 const SearchBar = (props) => {
   const { classes } = props;
   const [searchText, setSearchText] = useState("");
   let history = useHistory();
+
+  let location = useLocation();
+  useEffect(() => {
+    const searchText = location?.pathname;
+    if (typeof searchText === "string") {
+      setSearchText(searchText.replace(/search/g, "").replace(/\//g, ""));
+    }
+  }, [location]);
 
   const updateSearchText = (event) => {
     setSearchText(event.target.value);
@@ -34,6 +42,8 @@ const SearchBar = (props) => {
           className={classes.inputBase}
           placeholder="Search Products"
           onChange={updateSearchText}
+          value={searchText}
+          id="search-text"
         />
         <Button type="submit" className={classes.searchButton}>
           Search
