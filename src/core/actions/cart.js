@@ -8,6 +8,9 @@ export const CART_ADD_REQUEST = "@Cart/add/REQUEST";
 export const CART_ADD_SUCCESS = "@Cart/add/SUCCESS";
 export const CART_ADD_FAILED = "@Cart/add/FAILED";
 
+export const CART_SHOW = "@Cart/Open/SHOW";
+export const CART_HIDE = "@Cart/Open/HIDE";
+
 export const viewCart = () => {
   return async (dispatch) => {
     dispatch({ type: CART_VIEW_REQUEST });
@@ -42,5 +45,11 @@ export const addToCart = (productId, count) => {
           type: CART_ADD_FAILED,
         })
       );
+  };
+};
+
+export const toggleCart = (open) => {
+  return async (dispatch) => {
+    dispatch({ type: open ? CART_SHOW : CART_HIDE });
   };
 };

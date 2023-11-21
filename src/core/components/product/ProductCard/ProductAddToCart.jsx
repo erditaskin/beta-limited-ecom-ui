@@ -13,7 +13,6 @@ const ProductAddToCart = (props) => {
 
   const changeCount = (type) => {
     setCount((prev) => (type === "increase" ? prev + 1 : prev - 1));
-    onChangeCount(count);
   };
 
   useEffect(() => {

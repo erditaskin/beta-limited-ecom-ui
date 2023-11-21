@@ -25,16 +25,16 @@ const Home = (props) => {
   );
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     loading: state.home.productList.loading,
     productList: state.home.productList.data,
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     getProductList: () => dispatch(getProductList()),
   };
-}
+};
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Home);

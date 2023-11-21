@@ -6,11 +6,14 @@ import {
   CART_ADD_REQUEST,
   CART_ADD_SUCCESS,
   CART_ADD_FAILED,
+  CART_SHOW,
+  CART_HIDE,
 } from "../actions/cart";
 
 const defaultState = {
   loading: false,
   items: [],
+  open: false,
 };
 
 const reducer = handleActions(
@@ -52,6 +55,18 @@ const reducer = handleActions(
       return {
         ...state,
         loading: false,
+      };
+    },
+    [CART_SHOW]: (state) => {
+      return {
+        ...state,
+        open: true,
+      };
+    },
+    [CART_HIDE]: (state) => {
+      return {
+        ...state,
+        open: false,
       };
     },
   },

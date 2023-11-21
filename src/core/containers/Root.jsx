@@ -64,7 +64,6 @@ const Root = (props) => {
             newestOnTop={false}
             closeOnClick
             rtl={false}
-            pauseOnFocusLoss
             draggable
             pauseOnHover
             theme="colored"
@@ -75,18 +74,18 @@ const Root = (props) => {
   );
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     loading: state.session.loading,
     id: state.session.id,
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     createSession: () => dispatch(createSession()),
   };
-}
+};
 
 export default compose(
   withRouter,

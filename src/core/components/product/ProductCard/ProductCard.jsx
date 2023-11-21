@@ -11,24 +11,27 @@ import Typography from "@mui/material/Typography";
 import { Badge, Grid } from "@mui/material";
 import ProductAddToCart from "./ProductAddToCart";
 import { useState } from "react";
-import { addToCart } from "core/actions/cart";
+import { addToCart, toggleCart } from "core/actions/cart";
 import ProductPrice from "./ProductPrice";
 import ProductRating from "./ProductPrice";
 import { toast } from "react-toastify";
 
 const ProductCard = (props) => {
-  const { classes, item, loading, addToCart } = props;
+  const { classes, item, loading, addToCart, toggleCart } = props;
   const [count, setCount] = useState(0);
 
   const handleAddToCart = () => {
     if (count > 0) {
       addToCart(item.id, count)
         .then(() => {
+          toggleCart(true);
           toast.success("Product has been added to cart");
         })
         .catch(() => {
           toast.error("Error occured, product has not been added to cart");
         });
+    } else {
+      toast.warning("At least 1 or more product can be added to cart");
     }
   };
 
@@ -113,17 +116,18 @@ const styles = () => ({
   },
 });
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     loading: state.cart.loading,
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (productId, count) => dispatch(addToCart(productId, count)),
+    toggleCart: (open) => dispatch(toggleCart(open)),
   };
-}
+};
 
 export default compose(
   withStyles(styles),
