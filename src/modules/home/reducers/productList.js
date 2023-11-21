@@ -1,30 +1,34 @@
 import { handleActions } from "redux-actions";
-import { SAMPLE_REQUEST, SAMPLE_SUCCESS, SAMPLE_FAILED } from "../actions";
+import {
+  HOME_PRODUCT_LIST_REQUEST,
+  HOME_PRODUCT_LIST_SUCCESS,
+  HOME_PRODUCT_LIST_FAILED,
+} from "../actions";
 
 const defaultState = {
-  loading: true,
-  sampleForm: {},
+  loading: false,
+  data: [],
 };
 
 const reducer = handleActions(
   {
-    [SAMPLE_REQUEST]: (state) => {
+    [HOME_PRODUCT_LIST_REQUEST]: (state) => {
       return {
         ...state,
         loading: true,
       };
     },
-    [SAMPLE_SUCCESS]: (state, action) => {
+    [HOME_PRODUCT_LIST_SUCCESS]: (state, action) => {
       return {
         ...state,
-        sampleForm: action.payload,
+        data: action.payload,
         loading: false,
       };
     },
-    [SAMPLE_FAILED]: (state) => {
+    [HOME_PRODUCT_LIST_FAILED]: (state) => {
       return {
         ...state,
-        sampleForm: [],
+        data: [],
         loading: false,
       };
     },

@@ -1,11 +1,10 @@
 import * as React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import { withStyles } from "@material-ui/core/styles";
-import Badge from "@mui/material/Badge";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
-import Avatar from "@mui/material/Avatar";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { SwitchThemeButton } from "core/components/SwitchThemeButton/SwitchThemeButton";
+import Cart from "./Cart";
 
 const Header = (props) => {
   const { classes } = props;
@@ -13,11 +12,8 @@ const Header = (props) => {
     <Toolbar className={classes.toolbarMain}>
       <Logo />
       <SearchBar />
-      <Badge badgeContent={4} color="primary">
-        <Avatar>
-          <ShoppingCartIcon />
-        </Avatar>
-      </Badge>
+      <Cart />
+      <SwitchThemeButton />
     </Toolbar>
   );
 };

@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
-import sampleList from "./sampleList";
-import sample from "./sample";
+import productList from "./productList";
 
 const reducer = {
-  sample: combineReducers({
-    sampleList,
-    sample,
+  home: combineReducers({
+    productList,
   }),
 };
 

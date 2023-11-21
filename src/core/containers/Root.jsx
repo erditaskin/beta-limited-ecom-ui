@@ -8,7 +8,6 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { lightTheme } from "core/themes/light";
 import { darkTheme } from "core/themes/dark";
 import { ColorContext } from "core/contexts/ColorContext";
-import { SwitchThemeButton } from "core/components/SwitchThemeButton/SwitchThemeButton";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import BaseLayout from "core/layout/BaseLayout";
@@ -33,7 +32,7 @@ const Root = (props) => {
     if (!id && !loading) {
       createSession();
     }
-  }, [id, loading]);
+  }, [id, loading, createSession]);
 
   return (
     <ColorContext.Provider value={colorMode}>
