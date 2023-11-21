@@ -17,7 +17,11 @@ const SearchBar = (props) => {
   useEffect(() => {
     const searchText = location?.pathname;
     if (typeof searchText === "string") {
-      setSearchText(searchText.replace(/search/g, "").replace(/\//g, ""));
+      setSearchText(
+        searchText.includes("search")
+          ? searchText.replace(/search/g, "").replace(/\//g, "")
+          : ""
+      );
     }
   }, [location]);
 
