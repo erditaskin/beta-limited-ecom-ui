@@ -1,21 +1,40 @@
 import * as React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { getProductList } from "modules/home/actions";
+import { Typography } from "@mui/material";
+import ProductList from "core/components/product/ProductList/ProductList";
+import { useEffect } from "react";
 
 const Home = (props) => {
-  const { loading } = props;
+  const { loading, productList, getProductList } = props;
 
-  return <div className="App">home</div>;
+  useEffect(() => {
+    if (!loading && !productList) {
+      getProductList();
+    }
+  }, [productList, loading, getProductList]);
+
+  return (
+    <div className="App">
+      <Typography variant="h5" sx={{ paddingBottom: 3 }}>
+        Fresh products, limited only
+      </Typography>
+      <ProductList data={productList} />
+    </div>
+  );
 };
 
 function mapStateToProps(state) {
   return {
     loading: state.home.productList.loading,
+    productList: state.home.productList.data,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {};
+  return {
+    getProductList: () => dispatch(getProductList()),
+  };
 }
-
 export default compose(connect(mapStateToProps, mapDispatchToProps))(Home);

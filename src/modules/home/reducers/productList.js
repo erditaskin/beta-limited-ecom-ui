@@ -7,7 +7,7 @@ import {
 
 const defaultState = {
   loading: false,
-  data: [],
+  data: null,
 };
 
 const reducer = handleActions(
@@ -28,7 +28,7 @@ const reducer = handleActions(
     [HOME_PRODUCT_LIST_FAILED]: (state) => {
       return {
         ...state,
-        data: [],
+        data: null,
         loading: false,
       };
     },

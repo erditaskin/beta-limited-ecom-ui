@@ -11,9 +11,12 @@ import { ColorContext } from "core/contexts/ColorContext";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import BaseLayout from "core/layout/BaseLayout";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Root = (props) => {
   const { id, loading, createSession, children } = props;
+  const [isMounted, setMounted] = useState(false);
   const [mode, setMode] = useState("light");
   const colorMode = React.useMemo(
     () => ({
@@ -29,8 +32,14 @@ const Root = (props) => {
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     if (!id && !loading) {
-      createSession();
+      createSession().then(() => {
+        toast.info("Session created");
+      });
     }
   }, [id, loading, createSession]);
 
@@ -46,6 +55,20 @@ const Root = (props) => {
               <CircularProgress />
             </Box>
           </div>
+        )}
+        {isMounted && (
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         )}
       </ThemeProvider>
     </ColorContext.Provider>

@@ -1,5 +1,6 @@
 import * as React from "react";
 import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
@@ -16,47 +17,69 @@ const SearchBar = (props) => {
     setSearchText(event.target.value);
   };
 
-  const submitSearch = () => {
-    console.log(searchText);
+  const submitSearch = (event) => {
+    event.preventDefault();
     if (searchText.length > 2) {
       history.push("/search/" + searchText);
     }
   };
 
   return (
-    <Paper className={classes.paper}>
-      <form onSubmit={submitSearch}>
+    <form onSubmit={submitSearch} className={classes.searchForm}>
+      <Paper className={classes.paper}>
+        <IconButton sx={{ display: { xs: "none", md: "flex" } }}>
+          <SearchIcon />
+        </IconButton>
         <InputBase
           className={classes.inputBase}
           placeholder="Search Products"
           onChange={updateSearchText}
         />
-        <IconButton type="submit" className={classes.iconButton}>
-          <SearchIcon />
-        </IconButton>
-      </form>
-    </Paper>
+        <Button type="submit" className={classes.searchButton}>
+          Search
+        </Button>
+      </Paper>
+    </form>
   );
 };
 
 const styles = (theme) => ({
-  paper: {
-    padding: "2px 8px",
+  searchForm: {
     display: "flex",
-    alignItems: "center",
-    width: "auto",
     flexGrow: 4,
     marginRight: theme.spacing(2),
     [theme.breakpoints.down("sm")]: {
       marginRight: theme.spacing(1),
     },
   },
+  paper: {
+    padding: "2px 8px",
+    display: "flex",
+    flex: 1,
+    alignItems: "center",
+    width: "auto",
+    borderRadius: "30px !important",
+    position: "relative",
+  },
+  inputAdornment: {
+    marginRight: theme.spacing(1),
+  },
   inputBase: {
-    marginLeft: 1,
+    marginLeft: theme.spacing(1),
     flex: 1,
   },
-  iconButton: {
-    padding: "10px",
+  searchButton: {
+    backgroundColor: "#c24b5a !important",
+    borderRadius: "0 20px 20px 0 !important",
+    color: "#FFF !important",
+    fontWeigth: "bold !important",
+    position: "absolute !important",
+    right: 0,
+    height: "100% !important",
+    padding: "5px 20px !important",
+    [theme.breakpoints.down("sm")]: {
+      padding: "5px !important",
+    },
   },
 });
 

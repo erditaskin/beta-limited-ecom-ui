@@ -26,7 +26,8 @@ export const viewCart = () => {
   };
 };
 
-export const addToCart = (productId) => {
+export const addToCart = (productId, count) => {
+  // Endpoint doesn't handle count
   return async (dispatch) => {
     dispatch({ type: CART_ADD_REQUEST });
     return await Api.post("add-to-cart?id=" + productId)
