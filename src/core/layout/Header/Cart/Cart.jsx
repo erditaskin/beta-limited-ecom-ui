@@ -5,22 +5,39 @@ import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { withStyles } from "@material-ui/core/styles";
-import { toggleCart } from "core/actions/cart";
-import { Box, Popover, Typography } from "@mui/material";
+import { toggleCart, getCartItems, deleteCartItem } from "core/actions/cart";
+import { Box } from "@mui/material";
 import { useEffect, useState, useRef } from "react";
 import Grow from "@mui/material/Grow";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
+import CartProduct from "./CartProduct";
+import ConfirmDialog from "core/components/ConfirmDialog/ConfirmDialog";
 
 const Cart = (props) => {
-  const { classes, items, isOpen, toggleCart } = props;
+  const { classes, items, isOpen, toggleCart, getCartItems, deleteCartItem } =
+    props;
   const [anchorEl, setAnchorEl] = useState(null);
   const cartRef = useRef();
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [productWillBeDeleted, setProductWillBeDeleted] = useState(null);
+
+  const handleOnDelete = (productId) => {
+    setConfirmDialogOpen(true);
+    setProductWillBeDeleted(productId);
+  };
+
+  const handleDeleteProductCancel = () => {
+    setConfirmDialogOpen(false);
+  };
+
+  const handleDeleteProductConfirm = () => {
+    deleteCartItem(productWillBeDeleted);
+  };
 
   const handleCartToggle = () => {
     toggleCart(!isOpen);
@@ -30,8 +47,9 @@ const Cart = (props) => {
   useEffect(() => {
     if (isOpen) {
       setAnchorEl(cartRef.current);
+      getCartItems();
     }
-  }, [isOpen]);
+  }, [isOpen, getCartItems]);
 
   return (
     <Box>
@@ -71,24 +89,28 @@ const Cart = (props) => {
                     }
                   >
                     {items.length > 0 ? (
-                      items.map((item, idx) => (
-                        <ListItem disablePadding key={idx}>
-                          <ListItemButton>
-                            <ListItemText
-                              className={classes.listItemText}
-                              primary={item}
-                            />
-                          </ListItemButton>
-                        </ListItem>
-                      ))
+                      <>
+                        {items.map((item, idx) => (
+                          <CartProduct
+                            item={item}
+                            key={idx}
+                            onDelete={handleOnDelete}
+                          />
+                        ))}
+                        <ConfirmDialog
+                          open={confirmDialogOpen}
+                          title="Delete product"
+                          context="Product will be removed from your cart. Proceed?"
+                          onClose={handleDeleteProductCancel}
+                          onConfirm={handleDeleteProductConfirm}
+                        />
+                      </>
                     ) : (
                       <ListItem disablePadding>
-                        <ListItemButton>
-                          <ListItemText
-                            className={classes.listItemText}
-                            secondary="Cart empty"
-                          />
-                        </ListItemButton>
+                        <ListItemText
+                          className={classes.listItemText}
+                          secondary="Cart empty"
+                        />
                       </ListItem>
                     )}
                   </List>
@@ -130,6 +152,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     toggleCart: (open) => dispatch(toggleCart(open)),
+    getCartItems: () => dispatch(getCartItems()),
+    deleteCartItem: (productId) => dispatch(deleteCartItem(productId)),
   };
 };
 

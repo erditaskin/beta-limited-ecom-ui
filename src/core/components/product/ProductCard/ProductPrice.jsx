@@ -2,12 +2,10 @@ import * as React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
+import { currencyFormat } from "core/helpers/utils";
 
 const ProductPrice = (props) => {
   const { price, originalPrice, classes } = props;
-  const currencyFormat = (price) => {
-    return "$" + price.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  };
 
   return (
     price &&

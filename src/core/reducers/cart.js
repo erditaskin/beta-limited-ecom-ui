@@ -8,6 +8,7 @@ import {
   CART_ADD_FAILED,
   CART_SHOW,
   CART_HIDE,
+  CART_DELETE_PRODUCT,
 } from "../actions/cart";
 
 const defaultState = {
@@ -44,10 +45,9 @@ const reducer = handleActions(
         loading: true,
       };
     },
-    [CART_ADD_SUCCESS]: (state, action) => {
+    [CART_ADD_SUCCESS]: (state) => {
       return {
         ...state,
-        items: [...state.items, action.payload],
         loading: false,
       };
     },
@@ -67,6 +67,14 @@ const reducer = handleActions(
       return {
         ...state,
         open: false,
+      };
+    },
+    [CART_DELETE_PRODUCT]: (state, action) => {
+      return {
+        ...state,
+        items: {
+          ...state.items.reduce((item) => item.productId === action.payload),
+        },
       };
     },
   },

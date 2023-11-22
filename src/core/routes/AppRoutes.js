@@ -1,7 +1,7 @@
 import * as React from "react";
 import { matchPath, withRouter } from "react-router";
 import { Switch, Route } from "react-router-dom";
-import { moduleRoutes } from "core/helpers";
+import { moduleRoutes } from "core/helpers/module";
 import PageNotFound from "core/containers/PageNotFound";
 import modules from "modules";
 

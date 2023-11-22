@@ -11,7 +11,9 @@ export const CART_ADD_FAILED = "@Cart/add/FAILED";
 export const CART_SHOW = "@Cart/Open/SHOW";
 export const CART_HIDE = "@Cart/Open/HIDE";
 
-export const viewCart = () => {
+export const CART_DELETE_PRODUCT = "@Cart/Delete/PRODUCT";
+
+export const getCartItems = () => {
   return async (dispatch) => {
     dispatch({ type: CART_VIEW_REQUEST });
     return await Api.get("view-cart")
@@ -34,10 +36,9 @@ export const addToCart = (productId, count) => {
   return async (dispatch) => {
     dispatch({ type: CART_ADD_REQUEST });
     return await Api.post("add-to-cart?id=" + productId)
-      .then((result) => {
+      .then(() => {
         dispatch({
           type: CART_ADD_SUCCESS,
-          payload: result.data,
         });
       })
       .catch(
@@ -51,5 +52,16 @@ export const addToCart = (productId, count) => {
 export const toggleCart = (open) => {
   return async (dispatch) => {
     dispatch({ type: open ? CART_SHOW : CART_HIDE });
+  };
+};
+
+export const deleteCartItem = (productId) => {
+  // Since endpoint has not been granted for this action only substraction from feed will be solution
+  // When new request made for view cart products, removed items will be restored
+  return async (dispatch) => {
+    dispatch({
+      type: CART_DELETE_PRODUCT,
+      payload: productId,
+    });
   };
 };

@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import { SwitchThemeButton } from "core/components/SwitchThemeButton/SwitchThemeButton";
-import Cart from "./Cart";
+import Cart from "./Cart/Cart";
 
 const Header = (props) => {
   const { classes } = props;
