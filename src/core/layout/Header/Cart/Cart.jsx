@@ -17,6 +17,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import CartProduct from "./CartProduct";
 import ConfirmDialog from "core/components/ConfirmDialog/ConfirmDialog";
+import { toast } from "react-toastify";
 
 const Cart = (props) => {
   const { classes, items, isOpen, toggleCart, getCartItems, deleteCartItem } =
@@ -36,7 +37,9 @@ const Cart = (props) => {
   };
 
   const handleDeleteProductConfirm = () => {
-    deleteCartItem(productWillBeDeleted);
+    deleteCartItem(productWillBeDeleted).then(() => {
+      toast.info("1x Quantity of product removed from cart");
+    });
   };
 
   const handleCartToggle = () => {
@@ -100,7 +103,7 @@ const Cart = (props) => {
                         <ConfirmDialog
                           open={confirmDialogOpen}
                           title="Delete product"
-                          context="Product will be removed from your cart. Proceed?"
+                          context="1x Quantity of selected product will be removed from your cart. Proceed?"
                           onClose={handleDeleteProductCancel}
                           onConfirm={handleDeleteProductConfirm}
                         />
@@ -135,6 +138,8 @@ const styles = (theme) => ({
     zIndex: "999",
   },
   listItemText: {
+    width: "300px",
+    padding: "10px",
     "& span": {
       fontSize: "12px !important",
     },

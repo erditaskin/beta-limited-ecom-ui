@@ -23,7 +23,7 @@ const CardProduct = (props) => {
       />
       <ListItemText
         className={`${classes.listItemText} ${classes.cartProductPrice}`}
-        primary={currencyFormat(item.price)}
+        primary={currencyFormat(item.price * item.quantity)}
       />
       <ListItemButton
         size="small"

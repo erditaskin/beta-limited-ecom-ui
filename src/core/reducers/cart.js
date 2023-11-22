@@ -70,11 +70,15 @@ const reducer = handleActions(
       };
     },
     [CART_DELETE_PRODUCT]: (state, action) => {
+      let newItems = state.items.map((item) =>
+        item.productId === action.payload
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      );
+      newItems = newItems.filter((item) => item.quantity > 0);
       return {
         ...state,
-        items: {
-          ...state.items.reduce((item) => item.productId === action.payload),
-        },
+        items: newItems,
       };
     },
   },
