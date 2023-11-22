@@ -54,10 +54,23 @@ const Cart = (props) => {
     }
   }, [isOpen, getCartItems]);
 
+  const getItemCount = () => {
+    if (!items || items?.length === 0) {
+      return 0;
+    }
+
+    let count = 0;
+    items.map((item) => {
+      count = count + item.quantity;
+      return item;
+    });
+    console.log(count);
+    return count;
+  };
   return (
     <Box>
       <Badge
-        badgeContent={items?.length > 0 ? items?.length : 0}
+        badgeContent={getItemCount()}
         color="error"
         className={classes.cartBadge}
       >
