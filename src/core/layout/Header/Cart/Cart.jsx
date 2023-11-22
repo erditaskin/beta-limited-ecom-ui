@@ -55,18 +55,16 @@ const Cart = (props) => {
   }, [isOpen, getCartItems]);
 
   const getItemCount = () => {
-    if (!items || items?.length === 0) {
-      return 0;
+    if (items && items.length > 0) {
+      let count = 0;
+      items.forEach((item) => {
+        count = count + item.quantity;
+      });
+      return count;
     }
-
-    let count = 0;
-    items.map((item) => {
-      count = count + item.quantity;
-      return item;
-    });
-    console.log(count);
-    return count;
+    return 0;
   };
+
   return (
     <Box>
       <Badge
